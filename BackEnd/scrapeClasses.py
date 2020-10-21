@@ -1,36 +1,47 @@
 import requests
-import urllib.request
-import time
 import json
 
-# Getting all subject abbreviations
 
-subject_url = 'https://api.purdue.io/odata/Subjects'
-subject_response = requests.get(subject_url)
+def scrapeCourses():
 
-subject_data = json.loads(subject_response.text)
-subject_data = subject_data["value"]
+    # Getting all subject abbreviations
 
-subjects = []
-for i in range(0, len(subject_data)):
-    abb = subject_data[i]['Abbreviation']
-    subjects.append(abb)
+    subject_url = 'https://api.purdue.io/odata/Subjects'
+    subject_response = requests.get(subject_url)
 
-# Getting all course numbers and titles
+    subject_data = json.loads(subject_response.text)
+    subject_data = subject_data["value"]
 
-courses = []
+    subjects = []
+    for i in range(0, len(subject_data)):
+        abb = subject_data[i]['Abbreviation']
+        subjects.append(abb)
 
-for abb in subjects:
-    url = 'https://api.purdue.io/odata/Courses?$filter=Subject/Abbreviation eq \''
-    url += abb
-    url += '\'&$orderby=Number asc'
-    response = requests.get(url)
+    # Getting all course numbers and titles
 
-    data = json.loads(response.text)
-    data = data["value"]
+    courses = []
+    keep_courses = []
 
-    for i in range(0, len(data)):
-        course_number = data[i]['Number']
-        course_title = data[i]['Title']
-        title = abb + ' ' + course_number + ': ' + course_title
-        courses.append(title)
+    for abb in subjects:
+        url = 'https://api.purdue.io/odata/Courses?$filter=Subject/Abbreviation eq \''
+        url += abb
+        url += '\'&$orderby=Number asc'
+        response = requests.get(url)
+
+        data = json.loads(response.text)
+        data = data["value"]
+
+        for i in range(0, len(data)):
+            course_number = data[i]['Number']
+            course_title = data[i]['Title']
+            title = abb + ' ' + course_number + ': ' + course_title
+            if '\'' in title:
+                continue
+            if title.lower() in keep_courses:
+                continue
+            keep_courses.append(title.lower())
+            title.replace('\'', '')
+            if title not in courses:
+                courses.append(title)
+
+    return courses
