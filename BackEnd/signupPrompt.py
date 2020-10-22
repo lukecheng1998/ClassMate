@@ -26,11 +26,11 @@ name = input("Please write your name: \n")
 if(confirmPassword != password):
     print("error passwords don't match") #we should try to find a way to send this back to the front end via a json or python equivilant
     sys.exit(1)
-#cnx = mysql.connector.connect(user='root', password='cs348',
+cnx = mysql.connector.connect(user='root', password='cs348',
                               host='35.202.58.216',
                               database='classmate')
-#cursor = cnx.cursor()
-#addUser = "INSERT INTO Users (puEmail, hashedPass, name, instagram, linkedin) VALUES(" + "'" + email + "'" + ", '" + password + "'" + ", '" + name + "'" + ", '', '')"
-#cursor.execute(addUser)
-user = auth.create_user_with_email_and_password(email, password, name)
+cursor = cnx.cursor()
+addUser = "INSERT INTO Users (puEmail, hashedPass, name, instagram, linkedin) VALUES(" + "'" + email + "'" + ", '" + password + "'" + ", '" + name + "'" + ", '', '')"
+cursor.execute(addUser)
+user = auth.create_user_with_email_and_password(email, password)
 print("Success")
