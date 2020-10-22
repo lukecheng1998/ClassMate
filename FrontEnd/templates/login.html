@@ -1,14 +1,32 @@
-{% extends 'base.html' %}
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}Login{% endblock %}#}
 
-{% block title %}Login{% endblock %}
+<!DOCTYPE html>
+<html>
+<body>
 
-{% block content %}
-  <h2>Login</h2>
+<h2>Login</h2>
+
     <form method="post">
         <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
+        <input type="text" id="username" name="username"><br><br>
         <label for="password">Password:</label><br>
-        <input type="text" id="password" name="password">
+        <input type="password" id="password" name="password"><br><br>
+        <input type="checkbox" onclick="showPass()">Show Password<br><br>
       <button type="submit">Login</button>
     </form>
-{% endblock %}
+
+<script>
+function showPass() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
+
+</body>
+</html>
