@@ -14,7 +14,7 @@
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br><br>
         <input type="checkbox" onclick="showPass()">Show Password<br><br>
-      <button type="submit" onclick="loginUser()">Login</button>
+      <button type="submit"><a href="/signupPrompt/">Login</a></button>
     </form>
 
 <script>
@@ -26,17 +26,6 @@ function showPass() {
     x.type = "password";
   }
 }
-</script>
-
-<script>
-  function loginUser() {
-    $.ajax({
-      url: "FrontEnd/login/loginPrompt.py",
-      context: document.body
-    }).done(function(){
-      alert('Running loginPrompt Script');;
-    });
-  }
 </script>
 
 </body>
