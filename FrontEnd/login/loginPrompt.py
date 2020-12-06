@@ -2,7 +2,8 @@ import pyrebase
 from getpass import getpass
 import json
 import requests
-
+import sys
+from firebase_admin import auth
 
 firebaseConfig = {
     "apiKey": "AIzaSyDrDF0VPve6Nim45CEw8i4Lyo1L_cQ6Q3s",
@@ -17,15 +18,22 @@ firebaseConfig = {
 
 
 firebase = pyrebase.initialize_app(firebaseConfig)
+auth1 = firebase.auth()
+db = firebase.database()
 
-auth = firebase.auth()
-
-email = input("Please Enter Your Email Address: \n")
-password = getpass("Please Enter a Password: \n")
+email = sys.argv[1]
+password = sys.argv[2]
 
 #user = auth.create_user_with_email_and_password(email, password)
 
-login = auth.sign_in_with_email_and_password(email, password)
-print("Success")
+login = auth1.sign_in_with_email_and_password(email, password)
+if(login):
+  print("Success")
+  #print(login)
+  print(login['idToken'])
+else:
+  print("Failed")
+
+
 
 
