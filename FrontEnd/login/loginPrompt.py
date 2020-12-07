@@ -4,7 +4,10 @@ import json
 import requests
 import sys
 from firebase_admin import auth
-class loginPrompt():
+from django.shortcuts import render
+def index(request):
+  return render(request, "login.html")
+def loginPrompt(request):
   firebaseConfig = {
       "apiKey": "AIzaSyDrDF0VPve6Nim45CEw8i4Lyo1L_cQ6Q3s",
       "authDomain": "classmate-293217.firebaseapp.com",
@@ -20,9 +23,15 @@ class loginPrompt():
   firebase = pyrebase.initialize_app(firebaseConfig)
   auth1 = firebase.auth()
   db = firebase.database()
-
-  email = sys.argv[1]
-  password = sys.argv[2]
+  email = ''
+  password = ''
+  if request.method == "POST":
+    email = request.POST['username']
+    password = request.POST['password']
+    print(email)
+    print(password)
+  #email = sys.argv[1]
+  #password = sys.argv[2]
 
   #user = auth.create_user_with_email_and_password(email, password)
 
@@ -31,7 +40,7 @@ class loginPrompt():
     print("Success")
     #print(login)
     print(login['idToken'])
-    index = open("../templates/home.html").read()
+    return render(request, "home.html", {'email': email})
   else:
     print("Failed")
 

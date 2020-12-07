@@ -8,13 +8,13 @@
 
 <h2>Login</h2>
 
-    <form method="post">
+    <form method="post" action="{% url 'loginPrompt' %}">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br><br>
         <input type="checkbox" onclick="showPass()">Show Password<br><br>
-      <button type="submit"><a href="/signupPrompt/">Login</a></button>
+      <button type="submit"><a href="/loginPrompt/">Login</a></button>
     </form>
 
 <script>
