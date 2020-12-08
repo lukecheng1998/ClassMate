@@ -18,6 +18,6 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('loginPrompt/', auth_views.LoginView.as_view(), name='login'),
-    path('home/', auth_views.Home.as_view(), name='home'),
+    path('loginPrompt/', auth_views.LoginView.as_view(), name=''),
+    path('base/', auth_views.base, name='base'),
 ]

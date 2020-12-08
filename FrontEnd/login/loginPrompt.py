@@ -40,7 +40,7 @@ def loginPrompt(request):
     print("Success")
     #print(login)
     print(login['idToken'])
-    return render(request, "home.html", {'email': email})
+    return render(request, "base.html", {'email': email})
   else:
     print("Failed")
 
