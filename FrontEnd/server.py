@@ -23,9 +23,6 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 
 auth = firebase.auth()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/signupPrompt/')
 def signupPrompt():
@@ -45,15 +42,13 @@ def signupPrompt():
     cursor.execute(addUser)
     user = auth.create_user_with_email_and_password(email, password)
     print("Success")
-@app.route('/loginPrompt/')
-def loginPrompt():
-    email = input("Please Enter Your Email Address: \n")
-    password = getpass("Please Enter a Password: \n")
+@app.route('/')
+def loginPrompt(request):
+    email = request.post['username']
+    password = request.post['password']
 
     #user = auth.create_user_with_email_and_password(email, password)
 
     login = auth.sign_in_with_email_and_password(email, password)
+    return render(request, "home.html", {'email': email})
     print("Success")
-@app.route('/')
-def home():
-    return render_template('home.html')
