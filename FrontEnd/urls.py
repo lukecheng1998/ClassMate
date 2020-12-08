@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('loginPrompt/', auth_views.LoginView.as_view(), name=''),
     path('base/', auth_views.base, name='base'),
+    path('', include('cities.urls'))
 ]
