@@ -32,13 +32,13 @@
 <br>
 <br>
 
-    <form method="post">
+    <form method="post">{% csrf_token %}
         <br><br><label for="username">Email:</label><br>
         <input type="text" id="username" name="username"><br><br>
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password"><br><br>
         <input type="checkbox" onclick="showPass()">Show Password<br><br>
-      <button type="submit"><a href="/signupPrompt/">Login</a></button><br><br>
+      <button type="submit"><a href="/">Login</a></button><br><br>
     </form>
 
 <script>

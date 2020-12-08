@@ -27,7 +27,7 @@ auth = firebase.auth()
 def index():
     return render_template('index.html')
 
-@app.route('/loginPrompt/')
+@app.route('/signupPrompt/')
 def signupPrompt():
     print('In sign up prompt')
     email = input("Please Enter Your Email Address: \n") #we should replace the input with a variable passed in from the other py files
@@ -45,3 +45,15 @@ def signupPrompt():
     cursor.execute(addUser)
     user = auth.create_user_with_email_and_password(email, password)
     print("Success")
+@app.route('/loginPrompt/')
+def loginPrompt():
+    email = input("Please Enter Your Email Address: \n")
+    password = getpass("Please Enter a Password: \n")
+
+    #user = auth.create_user_with_email_and_password(email, password)
+
+    login = auth.sign_in_with_email_and_password(email, password)
+    print("Success")
+@app.route('/')
+def home():
+    return render_template('home.html')
