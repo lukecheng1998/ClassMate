@@ -23,11 +23,8 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 
 auth = firebase.auth()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
-@app.route('/loginPrompt/')
+@app.route('/signup/', methods=["POST"])
 def signupPrompt():
     print('In sign up prompt')
     email = input("Please Enter Your Email Address: \n") #we should replace the input with a variable passed in from the other py files
@@ -45,3 +42,22 @@ def signupPrompt():
     cursor.execute(addUser)
     user = auth.create_user_with_email_and_password(email, password)
     print("Success")
+@app.route('/login', methods=["POST"])
+def loginPrompt(request):
+    email = request.post['username']
+    password = request.post['password']
+
+    #user = auth.create_user_with_email_and_password(email, password)
+
+    login = auth.sign_in_with_email_and_password(email, password)
+    return render(request, "search.html", {'email': email})
+    print("Success")
+@app.route('/search')
+def searchRoute:
+    email = request.post['username']
+    password = request.post['password']
+
+    #user = auth.create_user_with_email_and_password(email, password)
+
+    login = auth.sign_in_with_email_and_password(email, password)
+    return render("search.html")
