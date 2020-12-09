@@ -1,21 +1,21 @@
 import mysql.connector
 
-import BackEnd.scrapeClasses
-
 cnx = mysql.connector.connect(user='root', password='cs348',
                               host='35.202.58.216',
                               database='classmate')
 
 cursor = cnx.cursor()
 
-add_course = "INSERT INTO Courses (title) VALUES (%s)"
+# Get user data from front-end
 
-# Insert new course
-courses = BackEnd.scrapeClasses.scrapeCourses()
-for i in range(0, len(courses)):
-    course_data = '\'' + courses[i] + '\''
-    query = add_course % course_data
-    cursor.execute(query)
+user_email = ()
+user_course = ()
+
+# Delete data from the UserCourses table
+
+delete_course = "DELETE FROM UserCourses WHERE user_email = " + str(user_email) + " AND user_course = " + str(user_course)
+
+cursor.execute(delete_course)
 
 # Make sure data is committed to the database
 cnx.commit()
